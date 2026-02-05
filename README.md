@@ -1,5 +1,7 @@
 # UglyURL
 
+https://uglyurl.me/
+
 The opposite of a URL shortener. Makes your URLs longer, uglier, and more confusing.
 
 ## What is UglyURL?
