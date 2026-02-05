@@ -2,6 +2,7 @@
 UglyURL - The URL Uglifier
 Flask application that makes URLs longer and uglier.
 """
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from uglifier import uglify_url
 from decoder import decode_ugly_url, sanitize_url
@@ -109,6 +110,13 @@ def server_error(e):
 
 
 if __name__ == '__main__':
+    # Get port from environment variable (for production deployment)
+    # Falls back to 5000 for local development
+    port = int(os.environ.get('PORT', 5000))
+
+    # Disable debug mode in production
+    debug = os.environ.get('FLASK_ENV') != 'production'
+
     # Run the Flask development server
     # In production, use a proper WSGI server like Gunicorn
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    app.run(debug=debug, host='0.0.0.0', port=port)
