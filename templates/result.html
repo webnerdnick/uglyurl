@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Ugly URL - UglyURL</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>UglyURL</h1>
+            <p class="tagline">The opposite of a URL shortener</p>
+        </header>
+
+        <main>
+            <div class="success-message">
+                <h2>Success! Your URL is now uglier.</h2>
+            </div>
+
+            <div class="result-section">
+                <h3>Original URL</h3>
+                <div class="url-box">
+                    <code>{{ original_url }}</code>
+                </div>
+                <div class="url-stats">
+                    <span class="stat-label">Length:</span>
+                    <span class="stat-value">{{ original_length }} characters</span>
+                </div>
+            </div>
+
+            <div class="result-section">
+                <h3>Ugly URL</h3>
+                <div class="url-box ugly">
+                    <code id="ugly-url">{{ ugly_url }}</code>
+                </div>
+                <div class="url-stats">
+                    <span class="stat-label">Length:</span>
+                    <span class="stat-value">{{ ugly_length }} characters</span>
+                    <span class="stat-separator">•</span>
+                    <span class="stat-label">Increase:</span>
+                    <span class="stat-value increase">+{{ increase }} characters (+{{ "%.1f"|format(increase_pct) }}%)</span>
+                </div>
+                <div class="button-group">
+                    <button id="copy-btn" class="btn-primary">Copy to Clipboard</button>
+                    <a href="{{ ugly_url }}" class="btn-secondary" target="_blank">Test Redirect</a>
+                </div>
+            </div>
+
+            <div class="stats-section">
+                <h3>Statistics</h3>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">{{ ugliness_level }}/10</div>
+                        <div class="stat-description">Ugliness Level</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ "%.1f"|format(increase_pct) }}%</div>
+                        <div class="stat-description">Size Increase</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">{{ "%.1f"|format(ugly_length / original_length) }}x</div>
+                        <div class="stat-description">Longer</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="actions">
+                <a href="{{ url_for('index') }}" class="btn-secondary">Uglify Another URL</a>
+            </div>
+
+            <div class="info-box">
+                <h4>What happens when someone clicks your ugly URL?</h4>
+                <p>
+                    They'll be automatically redirected to <strong>{{ original_url }}</strong>.
+                    The ugly URL extracts and decodes the original URL from the parameters,
+                    then performs a standard HTTP redirect.
+                </p>
+                <p class="privacy-note">
+                    No data is stored. Everything is encoded in the URL itself.
+                </p>
+            </div>
+        </main>
+
+        <footer>
+            <p>Made with Flask | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>

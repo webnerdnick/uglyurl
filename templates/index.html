@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UglyURL - The URL Uglifier</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>UglyURL</h1>
+            <p class="tagline">The opposite of a URL shortener</p>
+        </header>
+
+        <main>
+            <div class="description">
+                <p>Tired of short, clean URLs? Make them long, ugly, and filled with fake tracking parameters!</p>
+            </div>
+
+            <form action="/uglify" method="POST" class="uglify-form">
+                <div class="form-group">
+                    <label for="url">Enter a URL to uglify:</label>
+                    <input
+                        type="text"
+                        id="url"
+                        name="url"
+                        placeholder="https://example.com"
+                        required
+                        autocomplete="off"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="ugliness">
+                        Ugliness Level: <span id="ugliness-value">5</span>
+                    </label>
+                    <input
+                        type="range"
+                        id="ugliness"
+                        name="ugliness"
+                        min="1"
+                        max="10"
+                        value="5"
+                    >
+                    <div class="range-labels">
+                        <span>Clean</span>
+                        <span>Hideous</span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-primary">Uglify URL</button>
+            </form>
+
+            <section class="examples">
+                <h2>How it works</h2>
+                <div class="example">
+                    <div class="example-label">Before:</div>
+                    <code class="example-url">https://example.com</code>
+                </div>
+                <div class="example">
+                    <div class="example-label">After:</div>
+                    <code class="example-url ugly">https://localhost:5000/track/redirect/?utm_source=google_ads&utm_campaign=spring_sale_abc123&fbclid=IwAR2XxJ8kQpLmNo&ref=aHR0cHM6Ly9leGFtcGxlLmNvbQ...</code>
+                </div>
+                <p class="example-note">
+                    Your URL is encoded and hidden among fake tracking parameters.
+                    When someone clicks the ugly URL, they'll be redirected to your original URL.
+                </p>
+            </section>
+
+            <section class="features">
+                <h2>Features</h2>
+                <ul>
+                    <li>Adds fake UTM tracking parameters</li>
+                    <li>Generates fake Facebook, Google, and Microsoft click IDs</li>
+                    <li>Creates meaningless path segments</li>
+                    <li>Stateless - no database required</li>
+                    <li>Your URLs are never stored</li>
+                </ul>
+            </section>
+        </main>
+
+        <footer>
+            <p>Made with Flask | <a href="https://github.com" target="_blank">View on GitHub</a></p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
